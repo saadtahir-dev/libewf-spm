@@ -1,0 +1,87 @@
+/*
+ * Definitions for libcdatetime
+ *
+ * Copyright (C) 2013-2026, Joachim Metz <joachim.metz@gmail.com>
+ *
+ * Refer to AUTHORS for acknowledgements.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+#if !defined( _LIBCDATETIME_DEFINITIONS_H )
+#define _LIBCDATETIME_DEFINITIONS_H
+
+#include <libcdatetime/types.h>
+
+#define LIBCDATETIME_VERSION					20260509
+
+/* The libcdatetime version string
+ */
+#define LIBCDATETIME_VERSION_STRING				"20260509"
+
+/* The string format definition flags
+ */
+enum LIBCDATETIME_STRING_FORMAT_FLAGS
+{
+	/* Format the date time value in C time
+	 */
+	LIBCDATETIME_STRING_FORMAT_TYPE_CTIME			= 0x00000001UL,
+
+	/* Format the date time value in ISO 8601
+	 */
+	LIBCDATETIME_STRING_FORMAT_TYPE_ISO8601			= 0x00000002UL,
+
+	/* Format the date time value as a date only
+	 */
+	LIBCDATETIME_STRING_FORMAT_FLAG_DATE			= 0x00000100UL,
+
+	/* Format the date time value as a time only
+	 */
+	LIBCDATETIME_STRING_FORMAT_FLAG_TIME			= 0x00000200UL,
+
+	/* Format the date time value as a duration
+	 */
+	LIBCDATETIME_STRING_FORMAT_FLAG_DURATION		= 0x00000400UL,
+
+	/* Format the date time value with a time in milli seconds
+	 */
+	LIBCDATETIME_STRING_FORMAT_FLAG_TIME_MILLI_SECONDS	= 0x00010000UL,
+
+	/* Format the date time value with a time in micro seconds
+	 */
+	LIBCDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS	= 0x00020000UL,
+
+	/* Format the date time value with a time in nano seconds
+	 */
+	LIBCDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS	= 0x00040000UL,
+
+	/* Add a timezone indicator
+	 */
+	LIBCDATETIME_STRING_FORMAT_FLAG_TIMEZONE_INDICATOR	= 0x80000000UL,
+};
+
+#define LIBCDATETIME_STRING_FORMAT_FLAG_DATE_TIME \
+	(uint32_t) ( LIBCDATETIME_STRING_FORMAT_FLAG_DATE | LIBCDATETIME_STRING_FORMAT_FLAG_TIME )
+
+#define LIBCDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MILLI_SECONDS \
+	(uint32_t) ( LIBCDATETIME_STRING_FORMAT_FLAG_DATE | LIBCDATETIME_STRING_FORMAT_FLAG_TIME | LIBCDATETIME_STRING_FORMAT_FLAG_TIME_MILLI_SECONDS )
+
+#define LIBCDATETIME_STRING_FORMAT_FLAG_DATE_TIME_MICRO_SECONDS \
+	(uint32_t) ( LIBCDATETIME_STRING_FORMAT_FLAG_DATE | LIBCDATETIME_STRING_FORMAT_FLAG_TIME | LIBCDATETIME_STRING_FORMAT_FLAG_TIME_MICRO_SECONDS )
+
+#define LIBCDATETIME_STRING_FORMAT_FLAG_DATE_TIME_NANO_SECONDS \
+	(uint32_t) ( LIBCDATETIME_STRING_FORMAT_FLAG_DATE | LIBCDATETIME_STRING_FORMAT_FLAG_TIME | LIBCDATETIME_STRING_FORMAT_FLAG_TIME_NANO_SECONDS )
+
+#endif /* !defined( _LIBCDATETIME_DEFINITIONS_H ) */
+

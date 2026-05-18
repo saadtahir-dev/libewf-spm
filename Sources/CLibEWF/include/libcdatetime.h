@@ -1,0 +1,397 @@
+/*
+ * Library to support cross-platform C date and time functions
+ *
+ * Copyright (C) 2013-2026, Joachim Metz <joachim.metz@gmail.com>
+ *
+ * Refer to AUTHORS for acknowledgements.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+#if !defined( _LIBCDATETIME_H )
+#define _LIBCDATETIME_H
+
+#include <libcdatetime/definitions.h>
+#include <libcdatetime/error.h>
+#include <libcdatetime/extern.h>
+#include <libcdatetime/features.h>
+#include <libcdatetime/types.h>
+
+#include <stdio.h>
+
+#if defined( __cplusplus )
+extern "C" {
+#endif
+
+/* -------------------------------------------------------------------------
+ * Support functions
+ * ------------------------------------------------------------------------- */
+
+/* Returns the library version as a string
+ */
+LIBCDATETIME_EXTERN \
+const char *libcdatetime_get_version(
+             void );
+
+/* -------------------------------------------------------------------------
+ * Error functions
+ * ------------------------------------------------------------------------- */
+
+/* Frees an error
+ */
+LIBCDATETIME_EXTERN \
+void libcdatetime_error_free(
+      libcdatetime_error_t **error );
+
+/* Prints a descriptive string of the error to the stream
+ * Returns the number of printed characters if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_error_fprint(
+     libcdatetime_error_t *error,
+     FILE *stream );
+
+/* Prints a descriptive string of the error to the string
+ * Returns the number of printed characters if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_error_sprint(
+     libcdatetime_error_t *error,
+     char *string,
+     size_t size );
+
+/* Prints a backtrace of the error to the stream
+ * Returns the number of printed characters if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_error_backtrace_fprint(
+     libcdatetime_error_t *error,
+     FILE *stream );
+
+/* Prints a backtrace of the error to the string
+ * Returns the number of printed characters if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_error_backtrace_sprint(
+     libcdatetime_error_t *error,
+     char *string,
+     size_t size );
+
+/* -------------------------------------------------------------------------
+ * Date and time elements functions
+ * ------------------------------------------------------------------------- */
+
+/* Creates date and time elements
+ * Make sure the value elements is referencing, is set to NULL
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_initialize(
+     libcdatetime_elements_t **elements,
+     libcdatetime_error_t **error );
+
+/* Frees date and time elements
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_free(
+     libcdatetime_elements_t **elements,
+     libcdatetime_error_t **error );
+
+/* Copies the date and time elements
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_copy(
+     libcdatetime_elements_t *destination_elements,
+     const libcdatetime_elements_t *source_elements,
+     libcdatetime_error_t **error );
+
+/* Retrieves the year
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_get_year(
+     libcdatetime_elements_t *elements,
+     uint16_t *year,
+     libcdatetime_error_t **error );
+
+/* Retrieves the day of year
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_get_day_of_year(
+     libcdatetime_elements_t *elements,
+     uint16_t *day_of_year,
+     libcdatetime_error_t **error );
+
+/* Retrieves the month
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_get_month(
+     libcdatetime_elements_t *elements,
+     uint8_t *month,
+     libcdatetime_error_t **error );
+
+/* Retrieves the day of month
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_get_day_of_month(
+     libcdatetime_elements_t *elements,
+     uint8_t *day_of_month,
+     libcdatetime_error_t **error );
+
+/* Retrieves the date values
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_get_date_values(
+     libcdatetime_elements_t *elements,
+     uint16_t *year,
+     uint8_t *month,
+     uint8_t *day_of_month,
+     libcdatetime_error_t **error );
+
+/* Retrieves the hours
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_get_hours(
+     libcdatetime_elements_t *elements,
+     uint8_t *hours,
+     libcdatetime_error_t **error );
+
+/* Retrieves the minutes
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_get_minutes(
+     libcdatetime_elements_t *elements,
+     uint8_t *minutes,
+     libcdatetime_error_t **error );
+
+/* Retrieves the seconds
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_get_seconds(
+     libcdatetime_elements_t *elements,
+     uint8_t *seconds,
+     libcdatetime_error_t **error );
+
+/* Retrieves the milli seconds
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_get_milli_seconds(
+     libcdatetime_elements_t *elements,
+     uint16_t *milli_seconds,
+     libcdatetime_error_t **error );
+
+/* Retrieves the micro seconds
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_get_micro_seconds(
+     libcdatetime_elements_t *elements,
+     uint16_t *micro_seconds,
+     libcdatetime_error_t **error );
+
+/* Retrieves the nano seconds
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_get_nano_seconds(
+     libcdatetime_elements_t *elements,
+     uint16_t *nano_seconds,
+     libcdatetime_error_t **error );
+
+/* Retrieves the time values
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_get_time_values(
+     libcdatetime_elements_t *elements,
+     uint8_t *hours,
+     uint8_t *minutes,
+     uint8_t *seconds,
+     libcdatetime_error_t **error );
+
+/* Sets the date and time elements to the current (system) date and time in UTC
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_set_current_time_utc(
+     libcdatetime_elements_t *elements,
+     libcdatetime_error_t **error );
+
+/* Sets the date and time elements to the current (system) date and time in localtime
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_set_current_time_localtime(
+     libcdatetime_elements_t *elements,
+     libcdatetime_error_t **error );
+
+/* Determines the delta in seconds between the first and second date and time elements
+ * The number_of_seconds value with be negative if the first date and time
+ * pre-dates the second date and time
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_get_delta_in_seconds(
+     libcdatetime_elements_t *first_elements,
+     libcdatetime_elements_t *second_elements,
+     int64_t *number_of_seconds,
+     libcdatetime_error_t **error );
+
+/* Sets the time elements from the delta in seconds
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_set_from_delta_in_seconds(
+     libcdatetime_elements_t *elements,
+     int64_t number_of_seconds,
+     libcdatetime_error_t **error );
+
+/* Deterimes the size of the string for the date and time elements
+ * The string size includes the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_get_string_size(
+     libcdatetime_elements_t *elements,
+     size_t *string_size,
+     uint32_t string_format_flags,
+     libcdatetime_error_t **error );
+
+/* Converts the date and time elements into a string
+ * The string size should include the end of string character
+ * Returns 1 if successful, 0 if the elements are not a valid or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_copy_to_string(
+     libcdatetime_elements_t *elements,
+     uint8_t *string,
+     size_t string_size,
+     uint32_t string_format_flags,
+     libcdatetime_error_t **error );
+
+/* Converts the date and time elements into a string
+ * The string size should include the end of string character
+ * Returns 1 if successful, 0 if the elements are not a valid or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_elements_copy_to_string_with_index(
+     libcdatetime_elements_t *elements,
+     uint8_t *string,
+     size_t string_size,
+     size_t *string_index,
+     uint32_t string_format_flags,
+     libcdatetime_error_t **error );
+
+/* -------------------------------------------------------------------------
+ * Timestamp functions
+ * ------------------------------------------------------------------------- */
+
+/* Creates a timestamp
+ * Make sure the value timestamp is referencing, is set to NULL
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_timestamp_initialize(
+     libcdatetime_timestamp_t **timestamp,
+     libcdatetime_error_t **error );
+
+/* Frees a timestamp
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_timestamp_free(
+     libcdatetime_timestamp_t **timestamp,
+     libcdatetime_error_t **error );
+
+/* Copies the timestamp
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_timestamp_copy(
+     libcdatetime_timestamp_t *destination_timestamp,
+     const libcdatetime_timestamp_t *source_timestamp,
+     libcdatetime_error_t **error );
+
+/* Sets the timestamp to the current (system) date and time in UTC
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_timestamp_set_current_time(
+     libcdatetime_timestamp_t *timestamp,
+     libcdatetime_error_t **error );
+
+/* Determines the delta in seconds between the first and second timestamp
+ * The number_of_seconds value with be negative if the first timestamp
+ * pre-dates the second timestamp
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_timestamp_get_delta_in_seconds(
+     libcdatetime_timestamp_t *first_timestamp,
+     libcdatetime_timestamp_t *second_timestamp,
+     int64_t *number_of_seconds,
+     libcdatetime_error_t **error );
+
+/* Deterimes the size of the string for the timestamp
+ * The string size includes the end of string character
+ * Returns 1 if successful or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_timestamp_get_string_size(
+     libcdatetime_timestamp_t *timestamp,
+     size_t *string_size,
+     uint32_t string_format_flags,
+     libcdatetime_error_t **error );
+
+/* Converts the timestamp into a string
+ * The string size should include the end of string character
+ * Returns 1 if successful, 0 if the timestamp is not a valid or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_timestamp_copy_to_string(
+     libcdatetime_timestamp_t *timestamp,
+     uint8_t *string,
+     size_t string_size,
+     uint32_t string_format_flags,
+     libcdatetime_error_t **error );
+
+/* Converts the timestamp into a string
+ * The string size should include the end of string character
+ * Returns 1 if successful, 0 if the timestamp is not a valid or -1 on error
+ */
+LIBCDATETIME_EXTERN \
+int libcdatetime_timestamp_copy_to_string_with_index(
+     libcdatetime_timestamp_t *timestamp,
+     uint8_t *string,
+     size_t string_size,
+     size_t *string_index,
+     uint32_t string_format_flags,
+     libcdatetime_error_t **error );
+
+#if defined( __cplusplus )
+}
+#endif
+
+#endif /* !defined( _LIBCDATETIME_H ) */
+
